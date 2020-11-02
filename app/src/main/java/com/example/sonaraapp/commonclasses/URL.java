@@ -19,4 +19,11 @@ public class URL {
 
     public static final String URL_SHOWALLEMPLOYEES = ROOT_URL+"/employee/details";
 
+    public static final  String URL_SHOWALLCOMPLAINTS = ROOT_URL+"/customer/showcomplaint";
+
+    public static final  String URL_SHOWPENDINGCOMPLAINTS = ROOT_URL+"/customer/showcomplaint";
+
+    public static final  String URL_SHOWPROCESSCOMPLAINTS = ROOT_URL+"/customer/showcomplaint";
+
+
 }

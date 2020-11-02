@@ -114,6 +114,20 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <Button
+            android:id="@+id/btn_admin_show_all_pending"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/border"
+            android:textColor="#000000"
+            android:padding="15dp"
+            android:text="Show All Pding request"
+            android:textAlignment="center"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+        <Button
             android:id="@+id/btn_logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -128,7 +142,5 @@
             android:textSize="25dp"
             android:textStyle="bold" />
     </LinearLayout>
-
-
 </LinearLayout>
 </ScrollView>

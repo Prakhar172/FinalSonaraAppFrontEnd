@@ -132,6 +132,8 @@ public class addcustomer extends AppCompatActivity {
                 //{name:req.body.name,mobile:req.body.mobile,modelno:req.body.modelno,serialno:req.body.serialno,problem:req.body.problem,workdone:req.body.workdone,estimate:req.body.estimate,paid:req.body.paid,remarks:req.body.remarks}
                 params.put("name", username);
                 params.put("mobile", mobile);
+                params.put("status", radio_res);
+
                 params.put("modelno", modelno);
                 params.put("serialno", serialno);
                 params.put("problem", problems);
