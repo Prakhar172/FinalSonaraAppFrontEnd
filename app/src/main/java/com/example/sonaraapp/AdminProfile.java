@@ -11,7 +11,7 @@ import android.widget.Toast;
 import com.example.sonaraapp.commonclasses.SharedData;
 
 public class AdminProfile extends AppCompatActivity {
-Button addengineer, addcustomer,logout,showengineer,sold,complaints;
+Button addengineer, addcustomer,logout,showengineer,sold,complaints,allcomplaints;
 
 
     @Override
@@ -22,9 +22,18 @@ Button addengineer, addcustomer,logout,showengineer,sold,complaints;
         addengineer = findViewById(R.id.btn_admin_add_new_enginner);
         complaints = findViewById(R.id.btn_admin_complaints);
         sold = findViewById(R.id.btn_sold);
+        allcomplaints = findViewById(R.id.btn_admin_show_all_pending);
         showengineer = findViewById(R.id.btn_admin_show_all_engineer);
         logout = findViewById(R.id.btn_logout);
         SharedData sharedData = new SharedData(AdminProfile.this);
+        allcomplaints.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent(AdminProfile.this,all_complaints_panel.class);
+                startActivity(in);
+
+            }
+        });
         sold.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

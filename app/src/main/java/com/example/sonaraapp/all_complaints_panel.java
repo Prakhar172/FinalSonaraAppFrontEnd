@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -17,8 +18,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.sonaraapp.commonclasses.Complaint;
+import com.example.sonaraapp.commonclasses.ComplaintAdapter;
+import com.example.sonaraapp.commonclasses.CustomerAdapter;
+import com.example.sonaraapp.commonclasses.Employee;
 import com.example.sonaraapp.commonclasses.SharedData;
 import com.example.sonaraapp.commonclasses.URL;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,16 +43,31 @@ List<Complaint>  complaintList;
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         complaintList = new ArrayList<>();
-        ShowAllComplaints();
+        ShowAllComplaints(complaintList);
         
 
     }
 
-    private void ShowAllComplaints() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL.URL_SHOWALLCOMPLAINTS, new Response.Listener<String>() {
+    private void ShowAllComplaints(final List<Complaint>  complaintList) {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL.URL_SHOWALLCOMPLAINTS, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(all_complaints_panel.this, ""+response, Toast.LENGTH_SHORT).show();
+                try{
+                    JSONArray jsonArray = new JSONArray(response);
+
+                    for(int i=0;i<jsonArray.length();i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        Toast.makeText(all_complaints_panel.this, ""+jsonObject.getString("name")+""+jsonObject.getString("mobile")+""+jsonObject.getString("modelno")+""+jsonObject.getString("problem")+""+jsonObject.getString("engineer_id")+""+jsonObject.getString("status")+""+jsonObject.getString("date")+""+jsonObject.getString("estimate")+""+jsonObject.getString("paid"), Toast.LENGTH_SHORT).show();
+                        jsonObject.getString("name");
+                        complaintList.add(new Complaint(jsonObject.getString("name"),jsonObject.getString("mobile"),jsonObject.getString("modelno"),jsonObject.getString("problem"),jsonObject.getString("engineer_id"),jsonObject.getString("status"),jsonObject.getString("date"),jsonObject.getString("estimate"),jsonObject.getString("paid")));
+                    }
+                    ComplaintAdapter adapter = new ComplaintAdapter(all_complaints_panel.this,complaintList);
+                    recyclerView.setAdapter(adapter);
+
+//                    Toast.makeText(all_complaints_panel.this, ""+response, Toast.LENGTH_SHORT).show();
+
+                }
+                catch (Exception e){}
 
             }
         }, new Response.ErrorListener() {

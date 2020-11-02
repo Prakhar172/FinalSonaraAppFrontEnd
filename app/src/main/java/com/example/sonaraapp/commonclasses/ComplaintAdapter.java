@@ -1,12 +1,20 @@
 package com.example.sonaraapp.commonclasses;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sonaraapp.R;
@@ -28,7 +36,7 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.Comp
     public ComplaintAdapter.ComplaintViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //inflating and returning our view holder
         LayoutInflater inflater = LayoutInflater.from(mCtx);
-        View view = inflater.inflate(R.layout.activity_complaintlist, null);
+        View view = inflater.inflate(R.layout.activity_cardviewcomplaints, null);
         return new ComplaintAdapter.ComplaintViewHolder(view);
     }
 
@@ -47,19 +55,19 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.Comp
         holder.Complaint_call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                String number = Complaint.getCallnumber();
-//                PhoneCallListener phoneListener = new PhoneCallListener(mCtx,Complaint.getMobile());
-//                TelephonyManager telephonyManager =     (TelephonyManager) mCtx.getSystemService(Context.TELEPHONY_SERVICE);
-//                telephonyManager.listen(phoneListener, PhoneStateListener.LISTEN_CALL_STATE);
-//
-//                if (ActivityCompat.checkSelfPermission(mCtx, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
-//                    Intent callIntent = new Intent(Intent.ACTION_CALL);
-//                    callIntent.setData(Uri.parse("tel:"+Complaint.getCallnumber()));
-////                    callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                    mCtx.startActivity(callIntent);
-//                }else{
-//                    Toast.makeText(mCtx, "You don't assign permission.", Toast.LENGTH_SHORT).show();
-//                }
+                String number = Complaint.getMobile();
+                PhoneCallListener phoneListener = new PhoneCallListener(mCtx,Complaint.getMobile());
+                TelephonyManager telephonyManager =     (TelephonyManager) mCtx.getSystemService(Context.TELEPHONY_SERVICE);
+                telephonyManager.listen(phoneListener, PhoneStateListener.LISTEN_CALL_STATE);
+
+                if (ActivityCompat.checkSelfPermission(mCtx, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+                    Intent callIntent = new Intent(Intent.ACTION_CALL);
+                    callIntent.setData(Uri.parse("tel:"+Complaint.getMobile()));
+//                    callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mCtx.startActivity(callIntent);
+                }else{
+                    Toast.makeText(mCtx, "You don't assign permission.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -83,6 +91,7 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.Comp
             status = itemView.findViewById(R.id.status);
             estimate = itemView.findViewById(R.id.estimate);
             paid = itemView.findViewById(R.id.paid);
+            Complaint_call = itemView.findViewById(R.id.Complaint_call);
         }
     }
 }
